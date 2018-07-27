@@ -1,0 +1,102 @@
+.main{
+    height: 100%;
+.top{
+    height: .44rem;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 0 .1rem;
+    z-index: 999;
+    .pop{
+        width: .18rem;
+        height: .12rem;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        span{
+            display: block;
+            height: 0.01rem;
+            width: 100%;
+            background-color: white;
+            transition: .3s ease-in-out;
+        }
+        &.active{
+            span:nth-child(1){
+                transform: rotate(135deg);
+                top: .05rem;
+                position: absolute;
+            }
+            span:nth-child(2){
+                opacity: 0;
+            }
+            span:nth-child(3){
+                transform: rotate(-135deg);
+                top: .05rem;
+                position: absolute;
+            }
+        }
+        
+    }
+    .logo{
+        img{
+            height: .18rem;
+        }
+    }
+    .user{
+        i{
+            font-family: "iconfont";
+            font-size: .2rem;
+        }
+    }
+}
+.menu{
+    height: auto;
+    display: none;
+    width: 100%;
+    background: #121212;
+    position:absolute;
+    z-index: 999;
+    opacity: 0.9;
+    ul{
+        width: 100%;
+        li{
+            height: .6rem;
+            line-height: .6rem;
+            >a{
+                font-size: .16rem;
+                font-weight: 600;
+                margin: 0 auto;
+                width: 90%;
+                height: 100%; 
+                color: #fff;
+                border-top: .01rem solid #333;
+                display:block;
+                i{
+                    float: right;
+                    font-size: .2rem;
+                    color: #333;
+                }
+                b{
+                    font-size: .12rem;
+                    float: right;
+                    margin: 0 .1rem;
+                }
+            }
+        }
+    }
+    >div{
+        color: white;
+        height: .5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &.active{
+        display: block;
+    }
+}
+}
