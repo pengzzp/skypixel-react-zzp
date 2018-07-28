@@ -13,7 +13,6 @@ export default class home extends Component {
     };
   }
   render() {
-    // console.log(this.state.toplist)
     return (
       <div styleName="explore">
         <div styleName="top">
@@ -33,16 +32,19 @@ export default class home extends Component {
         }
         </div>
         {/* --------------------------------- */}
+        <h2>热门标签</h2>
         <section>
           {
-            // this.state.tagList.map(val=>(
-            //   <Taglist
-            //     // title={val.nams}
-            //     // items={val}
-            //   />
-            // )
-            // )
-            console.log(this.state.tagList)
+            this.state.tagList.map((val,i)=>(
+                <Taglist
+                  key={this.state.tagInfo[i].name}
+                  from="explore"
+                  title={this.state.tagInfo[i].name}
+                  items={val}
+                />
+              )
+            )
+            // console.log(this.state.tagList)
           }
         </section>
       </div>
@@ -65,11 +67,12 @@ export default class home extends Component {
     .then(result=>{
       this.setState((prevState)=>{
           return {
-            tagInfo:[...prevState.tagInfo,result.data.items]
+            tagInfo:[...prevState.tagInfo,...result.data.items]
           }
         }) 
         result.data.items.forEach(item => {    
           //根据标签信息中的api，获取taglist中的信息
+          // console.log(item.slug)
           fetch(`api/v2/tags/${item.slug}/works?lang=zh-CN&platform=web&device=mobile&limit=16&offset=0`)
             .then(response=>response.json())
             .then(result=>{

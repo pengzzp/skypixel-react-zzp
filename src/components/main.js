@@ -9,6 +9,7 @@ import {
 
 import {Home} from '../page/home'
 import {Explore} from '../page/explore'
+import {Photos} from '../page/photos'
 // import list from '../page/home/views/list2'
 
 class Main extends Component {
@@ -90,6 +91,7 @@ class Main extends Component {
                     <Switch>
                         <Route path="/" exact component={Home}/>
                         <Route path="/explore" component={Explore}/>
+                        <Route path="/photos/:slug" component={Photos}/>
                     </Switch>
                 </div>
             </Router>

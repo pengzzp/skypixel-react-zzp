@@ -116,6 +116,10 @@
     "/api": {
       "target": "https://www.skypixel.com",
       "changeOrigin": true
+    },
+    "/photos": {
+      "target": "https://www.skypixel.com",
+      "changeOrigin": true
     }
   }
 }

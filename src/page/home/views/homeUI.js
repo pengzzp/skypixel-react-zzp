@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import '../home.scss'
 import { Carousel} from 'antd-mobile';
 import { PullToRefresh} from 'antd-mobile';
-import { findDOMNode } from 'react-dom';
+import { findDOMNode} from 'react-dom';
+// import { Link } from 'react-router-dom'
 
 import Taglist from '../../../components/taglist'
 
@@ -21,6 +22,8 @@ export default class home extends Component {
       taglistInfo:[],//taglist的数据信息.
       n:0
     };
+    
+    //获取首页列表
     this.props.gethomeList(0)
   }
 
@@ -38,6 +41,9 @@ export default class home extends Component {
     },()=>{
       this.props.gethomeList(this.state.n)
     })
+  }
+  toPhotos(slug){
+    this.props.history.push(`/photos/${slug}`)
   }
   render() {
     return (
@@ -88,16 +94,17 @@ export default class home extends Component {
               this.props.homeList.map((val, i) => {
                 return(
                   <div key={val.slug}>
-
                     {
                       this.isShow(i)?<Taglist
                       //i=2 取taginfo的第一个数据 i=6 取第二个数据 
+                        from="home"
                         title={this.state.tagInfo[this.state.needposition.indexOf(i)].title} 
                         items={this.state.taglistInfo[this.state.needposition.indexOf(i)]}
                       />:null
                     }
                     
-                    <div styleName="item">
+                  
+                    <div styleName="item" onClick={this.toPhotos.bind(this,val.slug)}>
                       <div styleName="top">
                           <img src={val.user.avatar.small} alt="" />
                         <div>
@@ -127,6 +134,7 @@ export default class home extends Component {
                         </div>
                       </div>
                     </div>
+                  
                   </div>
                   )
                 }
@@ -155,7 +163,7 @@ export default class home extends Component {
         }
       })
     })
-    //获取首页列表
+    
     
     //获取标签信息
     fetch('/api/v2/pages/mobile?lang=zh-CN&platform=web&device=mobile')
