@@ -7,9 +7,9 @@ const setList=(data)=>{
     }
 }
 
-const getList=()=>{
+const getList=(offset)=>{
     return (dispatch)=>{
-        fetch('/api/v2/mobile/feeds?lang=zh-CN&platform=web&device=mobile&limit=16&offset=0',{
+        fetch(`/api/v2/mobile/feeds?lang=zh-CN&platform=web&device=mobile&limit=16&offset=${offset}`,{
             method:'GET',
         })
         .then(response=>response.json())

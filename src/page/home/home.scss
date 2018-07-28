@@ -36,6 +36,10 @@
                 }
                 >div{
                     height: .3rem;
+                    p:last-child{
+                        font-size: .1rem;
+                        color: #838385;
+                    }
                 }
             }
             .mid{
@@ -47,8 +51,9 @@
                 }
             }
             .bottom{
-                height: .84rem;
+                height: .74rem;
                 padding: .15rem;
+                padding-bottom: 0;
                 h3{
                     font-size: .14rem;
                     white-space: nowrap;

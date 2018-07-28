@@ -16,20 +16,30 @@ export default class home extends Component {
       refreshing: false,
       height: document.documentElement.clientHeight,
       tagInfo:[],
-      needposition:[]
+      needposition:[],//需要插入tag的位置
+      taglistApi:[],//需要获取taglist的接口地址
+      taglistInfo:[],//taglist的数据信息.
+      n:0
     };
+    this.props.gethomeList(0)
   }
 
   isShow(i){
-    // console.log(this.state.needposition.indexOf(i))
-    // console.log(this.state.needposition)
       if(this.state.needposition.indexOf(i)>=0){
-        console.log(this.state.needposition.indexOf(i))
-        return <Taglist/>
+        return true
       }
   }  
+  refresh(){
+    this.setState(
+    (prevState)=>{
+      return {
+        n:prevState.n+16
+      }
+    },()=>{
+      this.props.gethomeList(this.state.n)
+    })
+  }
   render() {
-    // console.log(this.state.needposition)
     return (
       <div styleName="home">
         <PullToRefresh
@@ -47,7 +57,8 @@ export default class home extends Component {
               setTimeout(() => {
                 this.setState({ refreshing: false });
               }, 1000);
-              // console.log(1)
+
+              this.refresh()
             }}
           >
           {/* 轮播图---------------------------------------------------- */}
@@ -76,11 +87,14 @@ export default class home extends Component {
             {
               this.props.homeList.map((val, i) => {
                 return(
-                  <div key={i}>
+                  <div key={val.slug}>
 
                     {
-                      this.isShow(i)
-                        // i===2||i===6?<Taglist/>:null
+                      this.isShow(i)?<Taglist
+                      //i=2 取taginfo的第一个数据 i=6 取第二个数据 
+                        title={this.state.tagInfo[this.state.needposition.indexOf(i)].title} 
+                        items={this.state.taglistInfo[this.state.needposition.indexOf(i)]}
+                      />:null
                     }
                     
                     <div styleName="item">
@@ -142,7 +156,7 @@ export default class home extends Component {
       })
     })
     //获取首页列表
-    this.props.gethomeList()
+    
     //获取标签信息
     fetch('/api/v2/pages/mobile?lang=zh-CN&platform=web&device=mobile')
     .then(response=>response.json())
@@ -150,27 +164,30 @@ export default class home extends Component {
       // console.log(result.data.items)
       this.setState((prevState) => {
         return {
-          tagInfo: [...prevState.tagInfo, ...result.data.items],
-          // needposition: [...prevState.needposition, ...result.data.items.position]
+          tagInfo: [...prevState.tagInfo, ...result.data.items]
         }
       })
       result.data.items.forEach(item => {
         this.setState((prevState) => {
           return {
-            needposition: [...prevState.needposition,item.position],
+            needposition: [...prevState.needposition,item.position]
           }
         })
+        
+        //根据标签信息中的api，获取taglist中的信息
+        fetch(`/api/${item.api}?lang=zh-CN&platform=web&device=mobile&limit=10&offset=0`)
+          .then(response=>response.json())
+          .then(result=>{
+            this.setState((prevState) => {
+                  return {
+                    taglistInfo: [...prevState.taglistInfo,result.data.items]
+                  }
+                })
+            })
       });
+      
     })
   }
-  // componentDidUpdate(){
-  //   //获取需要插入标签的位置
-  //   this.state.tagInfo.forEach(item => {
-  //     this.setState((prevState) => {
-  //       return {
-  //         needposition: [...prevState.needposition,item.position],
-  //       }
-  //     })
-  //   });
-  // }
+
+  
 }

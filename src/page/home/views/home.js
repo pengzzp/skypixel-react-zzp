@@ -10,8 +10,8 @@ const mapState=(state)=>{
 }
 const mapDispatch=(dispatch)=>{
     return{
-        gethomeList(){
-            dispatch(getList())
+        gethomeList(offset){
+            dispatch(getList(offset))
         }
     }
 }
