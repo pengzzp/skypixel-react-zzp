@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './taglist.scss'
 import photo from '../assets/icon/图片.svg'
 import video from '../assets/icon/视频.svg'
+import { Link } from 'react-router-dom'
 
 class Taglist extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class Taglist extends Component {
                 <a>查看全部</a>
             </div>
             <section>
+                {/* 首页跟探索页数据不同，分两个 */}
                     {this.props.from==="home"
                     ?
                     <ul>
@@ -45,7 +47,8 @@ class Taglist extends Component {
                     <ul>
                         {
                             this.props.items?this.props.items.map(val=>(
-                                <li key={val.slug}>
+                            <Link to={val.type==="video"?`/videos/${val.slug}`:`/photos/${val.slug}`} key={val.slug?val.slug:val.created_at}>
+                                <li>
                                     <div>
                                         <div></div>
                                         <img src={val.image?val.image.small:''} alt=""/>
@@ -56,8 +59,15 @@ class Taglist extends Component {
                                         </i>
                                         <span>{val.user.name}</span>
                                     </p>
-                                    <i><img src={val.type==="photo"?photo:(val.type==="video"?video:'')} alt=""/></i>
+                                    <i>{
+                                        val.type==="photo_360"
+                                        ?'360°'
+                                        :<img src={val.type==="photo"?photo:video} alt=""/>
+                                       }
+                      
+                                    </i>
                                 </li>
+                            </Link>
                             )):''
                         }
                     </ul> 

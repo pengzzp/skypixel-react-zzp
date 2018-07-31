@@ -2,7 +2,9 @@ import { connect } from 'react-redux'
 import exploreUI from './exploreUI.js'
 
 const mapState=(state)=>{
-    return {}
+    return {
+        homeList:state.home.list
+    }
 }
 const mapDispatch=(dispatch)=>{
     return{}

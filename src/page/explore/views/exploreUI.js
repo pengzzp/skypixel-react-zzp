@@ -15,6 +15,7 @@ export default class home extends Component {
   render() {
     return (
       <div styleName="explore">
+        {/* --------------------------------- */}
         <div styleName="top">
         {
           this.state.toplist.map(val=>(
@@ -37,14 +38,13 @@ export default class home extends Component {
           {
             this.state.tagList.map((val,i)=>(
                 <Taglist
-                  key={this.state.tagInfo[i].name}
+                  key={this.state.tagInfo[i].slug}
                   from="explore"
                   title={this.state.tagInfo[i].name}
                   items={val}
                 />
               )
             )
-            // console.log(this.state.tagList)
           }
         </section>
       </div>

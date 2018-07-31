@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './main.scss';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
     Link
@@ -10,6 +10,7 @@ import {
 import {Home} from '../page/home'
 import {Explore} from '../page/explore'
 import {Photos} from '../page/photos'
+import {Videos} from '../page/videos'
 // import list from '../page/home/views/list2'
 
 class Main extends Component {
@@ -92,6 +93,7 @@ class Main extends Component {
                         <Route path="/" exact component={Home}/>
                         <Route path="/explore" component={Explore}/>
                         <Route path="/photos/:slug" component={Photos}/>
+                        <Route path="/videos/:slug" component={Videos}/>
                     </Switch>
                 </div>
             </Router>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import '../photos.scss'
+import '../videos.scss'
 import { ActivityIndicator} from 'antd-mobile';
 
-export default class photos extends Component {
+export default class videos extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ export default class photos extends Component {
   
   render() {
     return (
-        <div styleName="photos">
+        <div styleName="videos">
           <div styleName="top">
           {this.state.info?
               <a>
@@ -30,19 +30,16 @@ export default class photos extends Component {
                 {
                   this.state.info
                       ?
-                      <a style={{paddingBottom:this.state.info.type==="photo"?'0':'100%'}}>{
-                        this.state.info.type==="photo"
-                        ?
-                        <img src={this.state.info.image.medium} alt="null"/>
-                        :
-                        <iframe
+                    <a>{
+                        <iframe 
                         scrolling="no" 
-                        title={this.state.info.title} 
+                        title={this.state.info.tltle} 
                         poster={this.state.info.image.medium}
                         width="100%" 
-                        height="100%"
-                        frameBorder="0"
-                        src={`/photos/play/${this.state.info.slug}?buttons=on`}>
+                        height="100%" 
+                        frameBorder="0" 
+                        allowfullscreen=""
+                        src={`${this.state.info.play_url}?autoplay=0&amp;$poster=${this.state.info.image.medium}`}>
                         </iframe>
                       }</a>
                       :
@@ -80,16 +77,12 @@ export default class photos extends Component {
               {this.state.info.description}
             </div>
           </div>
-
         </div>
     )
   }
-  componentWillMount(){
-    
-  }
   componentDidMount(){
     let slug=this.props.match.params.slug;
-    fetch(`/api/v2/photos/${slug}?lang=zh-CN&platform=web&device=mobile&compatible=true`)
+    fetch(`/api/v2/videos/${slug}?lang=zh-CN&platform=web&device=mobile&compatible=true`)
     .then(response=>response.json())
     .then(result=>{
         this.setState(

@@ -3,7 +3,8 @@ import '../home.scss'
 import { Carousel} from 'antd-mobile';
 import { PullToRefresh} from 'antd-mobile';
 import { findDOMNode} from 'react-dom';
-// import { Link } from 'react-router-dom'
+
+import video from '../../../assets/icon/视频.svg'
 
 import Taglist from '../../../components/taglist'
 
@@ -42,8 +43,17 @@ export default class home extends Component {
       this.props.gethomeList(this.state.n)
     })
   }
-  toPhotos(slug){
-    this.props.history.push(`/photos/${slug}`)
+  toDetail({slug,type}){
+    if(type==="video"){
+      this.props.history.push({
+        pathname:`/videos/${slug}`
+  
+      })
+    }else{
+      this.props.history.push({
+        pathname:`/photos/${slug}`
+      })
+    }
   }
   render() {
     return (
@@ -76,7 +86,7 @@ export default class home extends Component {
               {this.state.carousel_img.map(val => (
                 <a
                   key={val.id}
-                  style={{display:' inline-block',width:'100%',height:186}}
+                  style={{display:' inline-block',width:'100%',height:186,touchAction: "none"}}
                   href={val.link_url}
                 >
                   <img
@@ -87,14 +97,16 @@ export default class home extends Component {
                 </a>
               ))}
             </Carousel>
-            {/*---------------------------------------------------- */}
+            {/*列表---------------------------------------------------- */}
             
             <div styleName="list">
-            {
+            { 
               this.props.homeList.map((val, i) => {
                 return(
-                  <div key={val.slug}>
+                  <div key={i}>
+
                     {
+                      // 根据接口数据在列表特定位置插入横向列表
                       this.isShow(i)?<Taglist
                       //i=2 取taginfo的第一个数据 i=6 取第二个数据 
                         from="home"
@@ -103,8 +115,7 @@ export default class home extends Component {
                       />:null
                     }
                     
-                  
-                    <div styleName="item" onClick={this.toPhotos.bind(this,val.slug)}>
+                    <div styleName="item" onClick={this.toDetail.bind(this,val)}>
                       <div styleName="top">
                           <img src={val.user.avatar.small} alt="" />
                         <div>
@@ -112,9 +123,9 @@ export default class home extends Component {
                           <p>{val.location ? val.location.label : ''}</p>
                         </div>
                       </div>
-                      <div styleName="mid">
-                        <img src={val.image.small} alt="" />
-                        <span>{}</span>
+                      <div styleName="mid" style={{ backgroundImage:'url(' + val.image.small + ')'}}>
+                        {/* <img src={val.image.small} alt="" /> */}
+                        <i><img src={val.type==="video"?video:''} alt=""/></i>
                       </div>
                       <div styleName="bottom">
                         <h3>{val.title}</h3>
