@@ -84,9 +84,6 @@ export default class photos extends Component {
         </div>
     )
   }
-  componentWillMount(){
-    
-  }
   componentDidMount(){
     let slug=this.props.match.params.slug;
     fetch(`/api/v2/photos/${slug}?lang=zh-CN&platform=web&device=mobile&compatible=true`)

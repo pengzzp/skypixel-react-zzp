@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../explore.scss'
 import Taglist from '../../../components/taglist'
+import {Link} from 'react-router-dom'
 
 export default class home extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class home extends Component {
         <div styleName="top">
         {
           this.state.toplist.map(val=>(
-          <a key={val.slug}>
+          <Link key={val.slug} to={`/topics/${val.slug}`}>
               <div>
                   <img src={val.image} alt=""/>
               </div>
@@ -27,7 +28,7 @@ export default class home extends Component {
                   <img src={val.icon} alt=""/>
                   <span>{val.name}</span>
               </p>
-          </a>
+          </Link>
           )
         )
         }

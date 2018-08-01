@@ -11,6 +11,7 @@ import {Home} from '../page/home'
 import {Explore} from '../page/explore'
 import {Photos} from '../page/photos'
 import {Videos} from '../page/videos'
+import {Topics} from '../page/topics'
 // import list from '../page/home/views/list2'
 
 class Main extends Component {
@@ -94,6 +95,7 @@ class Main extends Component {
                         <Route path="/explore" component={Explore}/>
                         <Route path="/photos/:slug" component={Photos}/>
                         <Route path="/videos/:slug" component={Videos}/>
+                        <Route path="/topics/:slug" component={Topics}/>
                     </Switch>
                 </div>
             </Router>
