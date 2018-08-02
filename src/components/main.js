@@ -4,7 +4,8 @@ import {
     HashRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    // Redirect
   } from 'react-router-dom'
 
 import {Home} from '../page/home'
@@ -91,7 +92,9 @@ class Main extends Component {
                     </div>
 
                     <Switch>
-                        <Route path="/" exact component={Home}/>
+                        {/* <Redirect exact from='/' to='/home'/> */}
+                        <Route path="/"  component={Home}/>
+
                         <Route path="/explore" component={Explore}/>
                         <Route path="/photos/:slug" component={Photos}/>
                         <Route path="/videos/:slug" component={Videos}/>
